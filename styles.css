@@ -15,9 +15,9 @@ header {
 }
 
 #logo {
-    width: 100px;
+    width: 100px; /* Ajusta el tamaño del logo */
     display: block;
-    margin: 0 auto;
+    margin: 0 auto; /* Centra el logo */
 }
 
 main {
