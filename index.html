@@ -7,51 +7,63 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <!-- Encabezado con el logo de la empresa -->
     <header>
-        <h1>Gestor de Citas MedacDent</h1>
+        <h1>MedacDent - Gestor de Citas</h1>
+        <img src="logo.png" alt="Logo de MedacDent">
     </header>
-
-    <!-- Formulario para crear una nueva cita -->
-    <section id="appointment-form">
+    
+    <section id="formulario-cita">
         <h2>Añadir Nueva Cita</h2>
-        <form id="form">
-            <label for="name">Nombre del Paciente:</label>
-            <input type="text" id="name" required>
+        <form id="form-cita">
+            <label for="fecha">Fecha:</label>
+            <input type="datetime-local" id="fecha" name="fecha" required>
+            
+            <label for="nombre">Nombre:</label>
+            <input type="text" id="nombre" name="nombre" required>
+            
             <label for="dni">DNI:</label>
-            <input type="text" id="dni" required>
-            <label for="phone">Teléfono:</label>
-            <input type="text" id="phone" required>
-            <label for="date">Fecha de la Cita:</label>
-            <input type="datetime-local" id="date" required>
-            <label for="notes">Observaciones:</label>
-            <textarea id="notes"></textarea>
-            <button type="submit">Añadir Cita</button>
+            <input type="text" id="dni" name="dni" required>
+            
+            <label for="apellidos">Apellidos:</label>
+            <input type="text" id="apellidos" name="apellidos" required>
+            
+            <label for="telefono">Teléfono:</label>
+            <input type="tel" id="telefono" name="telefono" required>
+            
+            <label for="fechaNacimiento">Fecha de Nacimiento:</label>
+            <input type="date" id="fechaNacimiento" name="fechaNacimiento" required>
+            
+            <label for="observaciones">Observaciones:</label>
+            <textarea id="observaciones" name="observaciones"></textarea>
+            
+            <button type="button" id="guardarCita">Guardar Cita</button>
         </form>
     </section>
 
-    <!-- Tabla para mostrar las citas -->
-    <section id="appointment-table">
-        <h2>Citas</h2>
-        <table>
+    <section id="tabla-citas">
+        <h2>Listado de Citas</h2>
+        <table id="citas">
             <thead>
                 <tr>
                     <th>#</th>
-                    <th>Nombre del Paciente</th>
+                    <th>Fecha</th>
+                    <th>Nombre</th>
                     <th>DNI</th>
                     <th>Teléfono</th>
-                    <th>Fecha</th>
-                    <th>Observaciones</th>
                     <th>Acciones</th>
                 </tr>
             </thead>
-            <tbody id="appointments-list">
-                <tr><td colspan="7">No hay citas disponibles.</td></tr>
+            <tbody>
+                <tr id="sin-citas">
+                    <td colspan="6">Dato vacío</td>
+                </tr>
             </tbody>
         </table>
     </section>
 
-    <!-- Script para enlazar el JavaScript -->
-    <script src="app.js"></script>
+    <footer>
+        <p>Contacto: MedacDent, Teléfono: 123-456-789</p>
+    </footer>
+    <script src="script.js"></script>
 </body>
 </html>

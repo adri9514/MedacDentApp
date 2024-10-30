@@ -1,63 +1,92 @@
-// Selecciona los elementos del DOM
-const form = document.getElementById('form');
-const appointmentsList = document.getElementById('appointments-list');
-
-// Maneja el evento de envío del formulario
-form.addEventListener('submit', function (e) {
-    e.preventDefault(); // Evita que la página se recargue al enviar el formulario
-
-    // Obtén los valores de los campos
-    const name = document.getElementById('name').value;
+// script.js
+document.getElementById('guardarCita').addEventListener('click', function() {
+    // Recoger datos del formulario
+    const fecha = document.getElementById('fecha').value;
+    const nombre = document.getElementById('nombre').value;
     const dni = document.getElementById('dni').value;
-    const phone = document.getElementById('phone').value;
-    const date = document.getElementById('date').value;
-    const notes = document.getElementById('notes').value;
+    const apellidos = document.getElementById('apellidos').value;
+    const telefono = document.getElementById('telefono').value;
+    const fechaNacimiento = document.getElementById('fechaNacimiento').value;
+    const observaciones = document.getElementById('observaciones').value;
 
-    // Verifica si los datos son válidos
-    if (!validateForm(name, dni, phone, date)) return;
+    // Validar los datos
+    if (!fecha || !nombre || !dni || !apellidos || !telefono || !fechaNacimiento) {
+        alert('Por favor, rellene todos los campos.');
+        return;
+    }
+    if (isNaN(telefono)) {
+        alert('El teléfono debe ser un número válido.');
+        return;
+    }
 
-    // Crea un objeto de cita
-    const appointment = {
+    // Crear objeto de cita
+    const cita = {
         id: Date.now(),
-        name,
+        fecha,
+        nombre,
         dni,
-        phone,
-        date,
-        notes
+        apellidos,
+        telefono,
+        fechaNacimiento,
+        observaciones
     };
 
-    // Añade la cita a la lista
-    addAppointmentToTable(appointment);
+    // Guardar cita en LocalStorage
+    let citas = JSON.parse(localStorage.getItem('citas')) || [];
+    citas.push(cita);
+    localStorage.setItem('citas', JSON.stringify(citas));
+
+    // Actualizar la tabla
+    mostrarCitas();
 });
 
-// Función para validar el formulario
-function validateForm(name, dni, phone, date) {
-    // Ejemplo de validación básica: Verificar si el campo de teléfono tiene solo números
-    if (isNaN(phone)) {
-        alert("El teléfono debe ser un número");
-        return false;
+function mostrarCitas() {
+    const citas = JSON.parse(localStorage.getItem('citas')) || [];
+    const tbody = document.querySelector('#citas tbody');
+    tbody.innerHTML = '';
+
+    if (citas.length === 0) {
+        tbody.innerHTML = '<tr id="sin-citas"><td colspan="6">Dato vacío</td></tr>';
+    } else {
+        citas.forEach((cita, index) => {
+            const fila = document.createElement('tr');
+            fila.innerHTML = `
+                <td>${index + 1}</td>
+                <td>${cita.fecha}</td>
+                <td>${cita.nombre} ${cita.apellidos}</td>
+                <td>${cita.dni}</td>
+                <td>${cita.telefono}</td>
+                <td>
+                    <button onclick="eliminarCita(${cita.id})">Eliminar</button>
+                    <button onclick="editarCita(${cita.id})">Editar</button>
+                </td>
+            `;
+            tbody.appendChild(fila);
+        });
     }
-    return true;
 }
 
-// Función para añadir la cita a la tabla
-function addAppointmentToTable(appointment) {
-    const row = document.createElement('tr');
-
-    row.innerHTML = `
-        <td>${document.querySelectorAll('#appointments-list tr').length + 1}</td>
-        <td>${appointment.name}</td>
-        <td>${appointment.dni}</td>
-        <td>${appointment.phone}</td>
-        <td>${appointment.date}</td>
-        <td>${appointment.notes}</td>
-        <td><button onclick="deleteAppointment(this)">Delete</button></td>
-    `;
-
-    appointmentsList.appendChild(row);
+function eliminarCita(id) {
+    let citas = JSON.parse(localStorage.getItem('citas'));
+    citas = citas.filter(cita => cita.id !== id);
+    localStorage.setItem('citas', JSON.stringify(citas));
+    mostrarCitas();
 }
 
-// Función para eliminar la cita
-function deleteAppointment(button) {
-    button.parentElement.parentElement.remove();
+function editarCita(id) {
+    const citas = JSON.parse(localStorage.getItem('citas'));
+    const cita = citas.find(cita => cita.id === id);
+    if (cita) {
+        document.getElementById('fecha').value = cita.fecha;
+        document.getElementById('nombre').value = cita.nombre;
+        document.getElementById('dni').value = cita.dni;
+        document.getElementById('apellidos').value = cita.apellidos;
+        document.getElementById('telefono').value = cita.telefono;
+        document.getElementById('fechaNacimiento').value = cita.fechaNacimiento;
+        document.getElementById('observaciones').value = cita.observaciones;
+        eliminarCita(id);
+    }
 }
+
+// Mostrar citas al cargar la página
+window.onload = mostrarCitas;
