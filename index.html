@@ -3,66 +3,61 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MedacDent - Gestor de Citas</title>
+    <title>MedacDent - Gestión de Citas</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <header>
-        <h1>MedacDent - Gestor de Citas</h1>
-        <img src="logo.png" alt="Logo de MedacDent">
+        <img src="assets/logo-medacdent.png" alt="Logo de MedacDent" id="logo">
+        <h1>Gestión de Citas - MedacDent</h1>
     </header>
-    
-    <section id="formulario-cita">
-        <h2>Añadir Nueva Cita</h2>
-        <form id="form-cita">
-            <label for="fecha">Fecha:</label>
-            <input type="datetime-local" id="fecha" name="fecha" required>
+    <main>
+        <form id="formulario-cita">
+            <h2>Nueva Cita</h2>
+            <label>Fecha y Hora:</label>
+            <input type="datetime-local" id="fecha" required>
             
-            <label for="nombre">Nombre:</label>
-            <input type="text" id="nombre" name="nombre" required>
+            <label>Nombre:</label>
+            <input type="text" id="nombre" required>
             
-            <label for="dni">DNI:</label>
-            <input type="text" id="dni" name="dni" required>
+            <label>Apellidos:</label>
+            <input type="text" id="apellido" required>
             
-            <label for="apellidos">Apellidos:</label>
-            <input type="text" id="apellidos" name="apellidos" required>
+            <label>DNI:</label>
+            <input type="text" id="dni" required>
             
-            <label for="telefono">Teléfono:</label>
-            <input type="tel" id="telefono" name="telefono" required>
+            <label>Teléfono:</label>
+            <input type="text" id="telefono" required>
             
-            <label for="fechaNacimiento">Fecha de Nacimiento:</label>
-            <input type="date" id="fechaNacimiento" name="fechaNacimiento" required>
+            <label>Fecha de Nacimiento:</label>
+            <input type="date" id="fechaNacimiento" required>
             
-            <label for="observaciones">Observaciones:</label>
-            <textarea id="observaciones" name="observaciones"></textarea>
+            <label>Observaciones:</label>
+            <textarea id="observaciones"></textarea>
             
-            <button type="button" id="guardarCita">Guardar Cita</button>
+            <button type="submit">Guardar Cita</button>
         </form>
-    </section>
-
-    <section id="tabla-citas">
-        <h2>Listado de Citas</h2>
-        <table id="citas">
+        
+        <table id="tabla-citas">
             <thead>
                 <tr>
                     <th>#</th>
                     <th>Fecha</th>
                     <th>Nombre</th>
+                    <th>Apellidos</th>
                     <th>DNI</th>
                     <th>Teléfono</th>
+                    <th>Observaciones</th>
                     <th>Acciones</th>
                 </tr>
             </thead>
-            <tbody>
-                <tr id="sin-citas">
-                    <td colspan="6">Dato vacío</td>
-                </tr>
+            <tbody id="citas-body">
+                <tr><td colspan="8">Dato vacío</td></tr>
             </tbody>
         </table>
-    </section>
-
+    </main>
     <footer>
-        <p>Contacto: MedacDent, Teléfono: 123-456-789</p>
+        <p>MedacDent - Contacto: +34 123 456 789</p>
     </footer>
     <script src="script.js"></script>
 </body>
