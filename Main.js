@@ -9,13 +9,28 @@ document.getElementById('guardarCita').addEventListener('click', function() {
     const fechaNacimiento = document.getElementById('fechaNacimiento').value;
     const observaciones = document.getElementById('observaciones').value;
 
+    // Limpiar errores previos
+    document.querySelectorAll('.error').forEach(el => el.classList.remove('error'));
+    document.querySelectorAll('.error-message').forEach(el => el.remove());
+
+    let isValid = true;
+
     // Validar los datos
     if (!fecha || !nombre || !dni || !apellidos || !telefono || !fechaNacimiento) {
         alert('Por favor, rellene todos los campos.');
         return;
     }
     if (isNaN(telefono)) {
-        alert('El teléfono debe ser un número válido.');
+        const telefonoField = document.getElementById('telefono');
+        telefonoField.classList.add('error');
+        const errorMessage = document.createElement('span');
+        errorMessage.classList.add('error-message');
+        errorMessage.innerText = 'El teléfono debe ser un número válido.';
+        telefonoField.parentElement.appendChild(errorMessage);
+        isValid = false;
+    }
+
+    if (!isValid) {
         return;
     }
 
