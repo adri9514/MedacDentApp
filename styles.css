@@ -15,10 +15,8 @@ header {
 }
 
 #logo {
-    max-width: 150px; /* Limita el ancho máximo */
+    width: 100px; /* Ajusta a la dimensión que prefieras */
     height: auto; /* Mantiene la proporción */
-    display: block;
-    margin: 0 auto; /* Centra el logo */
 }
 
 main {
